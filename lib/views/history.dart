@@ -1,5 +1,4 @@
-import 'dart:convert'; // For JSON encoding/decoding
-import 'dart:developer';
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -31,7 +30,6 @@ class _HistoryViewState extends State<HistoryView> {
     final String allTransactionsString =
         prefs.getString('transactions') ?? "{}";
     Map<String, dynamic> allTransactions = jsonDecode(allTransactionsString);
-    log(allTransactionsString);
 
     return (allTransactions[_formattedDate] ?? [])
         .map<int>((e) => e as int)
