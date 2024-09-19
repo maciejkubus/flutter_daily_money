@@ -54,6 +54,29 @@ class _HistoryViewState extends State<HistoryView> {
     }
   }
 
+  Future<void> _removeTransaction(int index) async {
+    final prefs = await SharedPreferences.getInstance();
+    final String allTransactionsString =
+        prefs.getString('transactions') ?? "{}";
+    Map<String, dynamic> allTransactions = jsonDecode(allTransactionsString);
+
+    // Remove the transaction
+    if (allTransactions.containsKey(_formattedDate)) {
+      List<dynamic> transactionList = allTransactions[_formattedDate];
+      if (transactionList.length > index) {
+        transactionList.removeAt(index);
+        // Update the transactions in SharedPreferences
+        allTransactions[_formattedDate] = transactionList;
+        await prefs.setString('transactions', jsonEncode(allTransactions));
+      }
+    }
+
+    // Refresh the transactions
+    setState(() {
+      _transactionsFuture = _loadTransactions();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -87,6 +110,12 @@ class _HistoryViewState extends State<HistoryView> {
                     itemBuilder: (context, index) {
                       return ListTile(
                         title: Text('Transaction: ${transactions[index]} zł'),
+                        trailing: IconButton(
+                          icon: Icon(Icons.delete, color: Colors.red),
+                          onPressed: () {
+                            _removeTransaction(index);
+                          },
+                        ),
                       );
                     },
                   );

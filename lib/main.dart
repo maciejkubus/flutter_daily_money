@@ -31,8 +31,8 @@ class _HomePageState extends State<HomePage> {
   // List of widgets to display for each view
   final List<Widget> _views = [
     const HomeView(),
-    SettingsView(),
     const HistoryView(), // Add HistoryView here
+    SettingsView(),
   ];
 
   // Function to handle when a bottom nav item is tapped
@@ -54,12 +54,12 @@ class _HomePageState extends State<HomePage> {
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            label: 'Settings',
-          ),
-          BottomNavigationBarItem(
             icon: Icon(Icons.history),
             label: 'History', // Add label for HistoryView
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.settings),
+            label: 'Settings',
           ),
         ],
         currentIndex: _selectedIndex,
