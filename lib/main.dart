@@ -30,7 +30,7 @@ class _HomePageState extends State<HomePage> {
   // List of widgets to display for each view
   final List<Widget> _views = [
     const HomeView(),
-    const SettingsView(),
+    SettingsView(),
   ];
 
   // Function to handle when a bottom nav item is tapped
