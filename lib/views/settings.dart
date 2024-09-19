@@ -44,6 +44,7 @@ class _SettingsViewState extends State<SettingsView> {
     await prefs.setString('money', _moneyController.text);
     if (_selectedDate != null) {
       await prefs.setString('payday', _selectedDate!.toIso8601String());
+      await prefs.setString('payday-from', DateTime.now().toIso8601String());
     }
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(

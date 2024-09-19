@@ -96,7 +96,7 @@ class _DayState extends State<Day> {
       child: Column(
         children: [
           Text(
-            'Allowance: $_allowance',
+            'Today: $_allowance zł',
             style: TextStyle(
               fontSize: 24,
               color: _allowance >= 0 ? Colors.green : Colors.red,

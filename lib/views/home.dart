@@ -11,6 +11,7 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
+  DateTime? _paydayFrom;
   DateTime? _payday;
   int _daysLeft = 0;
   int _dailyMoney = 0;
@@ -31,6 +32,11 @@ class _HomeViewState extends State<HomeView> {
   // Load payday from shared preferences
   Future<void> _loadData() async {
     final prefs = await SharedPreferences.getInstance();
+
+    String paydayFrom = prefs.getString('payday-from') ?? '2024-1-1';
+    setState(() {
+      _paydayFrom = DateTime.tryParse(paydayFrom);
+    });
 
     String? savedDate = prefs.getString('payday');
     if (savedDate != null) {
@@ -55,9 +61,9 @@ class _HomeViewState extends State<HomeView> {
 
   // Calculate days left until payday
   void _calculateDaysLeft() {
-    if (_payday != null) {
+    if (_payday != null && _paydayFrom != null) {
       setState(() {
-        _daysLeft = _payday!.difference(DateTime.now()).inDays;
+        _daysLeft = _payday!.difference(_paydayFrom!).inDays;
       });
     }
   }
