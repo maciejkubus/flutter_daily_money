@@ -53,6 +53,8 @@ class _DayState extends State<Day> {
 
   // Save transactions for the current day to SharedPreferences
   Future<void> _saveTransaction(int amount) async {
+    if (amount < 0) return;
+
     final prefs = await SharedPreferences.getInstance();
     final String? allTransactionsString = prefs.getString('transactions');
     Map<String, dynamic> allTransactions = {};
@@ -83,6 +85,8 @@ class _DayState extends State<Day> {
         content: Text('Transaction added!'),
       ),
     );
+
+    FocusManager.instance.primaryFocus?.unfocus();
   }
 
   @override

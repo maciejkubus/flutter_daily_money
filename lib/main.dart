@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_daily_money/views/home.dart';
 import 'package:flutter_daily_money/views/settings.dart';
+import 'package:flutter_daily_money/views/history.dart'; // Import HistoryView
 
 void main() {
   runApp(MyApp());
@@ -31,6 +32,7 @@ class _HomePageState extends State<HomePage> {
   final List<Widget> _views = [
     const HomeView(),
     SettingsView(),
+    const HistoryView(), // Add HistoryView here
   ];
 
   // Function to handle when a bottom nav item is tapped
@@ -54,6 +56,10 @@ class _HomePageState extends State<HomePage> {
           BottomNavigationBarItem(
             icon: Icon(Icons.settings),
             label: 'Settings',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.history),
+            label: 'History', // Add label for HistoryView
           ),
         ],
         currentIndex: _selectedIndex,
