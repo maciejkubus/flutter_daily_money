@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_daily_money/widgets/day.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -17,20 +18,20 @@ class _HomeViewState extends State<HomeView> {
   @override
   void initState() {
     super.initState();
-    _loadPayday(); // Load payday when the view is created
+    _loadData(); // Load payday when the view is created
   }
 
   // Reload data when returning to HomeView
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    _loadPayday(); // Load payday when view is re-displayed
-    _loadMoney();
+    _loadData();
   }
 
   // Load payday from shared preferences
-  Future<void> _loadPayday() async {
+  Future<void> _loadData() async {
     final prefs = await SharedPreferences.getInstance();
+
     String? savedDate = prefs.getString('payday');
     if (savedDate != null) {
       setState(() {
@@ -43,14 +44,11 @@ class _HomeViewState extends State<HomeView> {
         _daysLeft = 0;
       });
     }
-  }
 
-  Future<void> _loadMoney() async {
-    final prefs = await SharedPreferences.getInstance();
     int? money = int.parse(prefs.getString('money') ?? '0');
     if (money != null) {
       setState(() {
-        _dailyMoney = money ~/ _daysLeft;
+        _dailyMoney = money ~/ (_daysLeft > 0 ? _daysLeft : 1);
       });
     }
   }
@@ -68,7 +66,7 @@ class _HomeViewState extends State<HomeView> {
   Widget build(BuildContext context) {
     return Center(
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
             _payday != null ? '$_daysLeft days left' : 'Payday not set',
@@ -87,6 +85,14 @@ class _HomeViewState extends State<HomeView> {
               color: Colors.red,
             ),
           ),
+          const SizedBox(
+            height: 32,
+          ),
+          _dailyMoney > 0
+              ? Day(dailyMoney: _dailyMoney)
+              : SizedBox(
+                  height: 8,
+                )
         ],
       ),
     );

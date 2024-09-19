@@ -115,7 +115,10 @@ class _SettingsViewState extends State<SettingsView> {
                 ),
                 ElevatedButton(
                   onPressed: () => _selectDate(context),
-                  child: Text('Select Payday'),
+                  child: Text(
+                    'Select Payday',
+                    style: TextStyle(fontSize: 16),
+                  ),
                 ),
               ],
             ),
@@ -124,7 +127,10 @@ class _SettingsViewState extends State<SettingsView> {
             Center(
               child: ElevatedButton(
                 onPressed: _saveForm,
-                child: Text('Save'),
+                child: Text(
+                  'Save',
+                  style: TextStyle(fontSize: 20),
+                ),
               ),
             ),
           ],

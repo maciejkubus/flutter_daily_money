@@ -43,9 +43,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Bottom Navigation Demo'),
-      ),
+      appBar: AppBar(),
       body: _views[_selectedIndex], // Display the selected view
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
