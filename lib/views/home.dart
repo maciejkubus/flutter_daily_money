@@ -1,8 +1,5 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_daily_money/widgets/day.dart';
-import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeView extends StatefulWidget {
@@ -54,11 +51,9 @@ class _HomeViewState extends State<HomeView> {
     }
 
     int? money = int.parse(prefs.getString('money') ?? '0');
-    if (money != null) {
-      setState(() {
-        _dailyMoney = money ~/ (_daysLeft > 0 ? _daysLeft : 1);
-      });
-    }
+    setState(() {
+      _dailyMoney = money ~/ (_daysLeft > 0 ? _daysLeft : 1);
+    });
   }
 
   // Calculate days left until payday
@@ -86,7 +81,7 @@ class _HomeViewState extends State<HomeView> {
           ),
           const SizedBox(height: 4),
           Text(
-            _dailyMoney != null ? '$_dailyMoney zł per day' : 'No money',
+            '$_dailyMoney zł per day',
             style: const TextStyle(
               fontSize: 32,
               fontWeight: FontWeight.bold,
