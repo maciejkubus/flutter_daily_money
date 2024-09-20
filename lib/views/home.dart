@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_daily_money/widgets/day.dart';
 import 'package:intl/intl.dart';
@@ -63,7 +65,7 @@ class _HomeViewState extends State<HomeView> {
   void _calculateDaysLeft() {
     if (_payday != null && _paydayFrom != null) {
       setState(() {
-        _daysLeft = _payday!.difference(_paydayFrom!).inDays;
+        _daysLeft = _payday!.difference(_paydayFrom!).inDays + 1;
       });
     }
   }
@@ -76,7 +78,7 @@ class _HomeViewState extends State<HomeView> {
         children: [
           Text(
             _payday != null ? '$_daysLeft days left' : 'Payday not set',
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 36,
               fontWeight: FontWeight.bold,
               color: Colors.green,
@@ -85,7 +87,7 @@ class _HomeViewState extends State<HomeView> {
           const SizedBox(height: 4),
           Text(
             _dailyMoney != null ? '$_dailyMoney zł per day' : 'No money',
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 32,
               fontWeight: FontWeight.bold,
               color: Colors.red,
@@ -96,7 +98,7 @@ class _HomeViewState extends State<HomeView> {
           ),
           _dailyMoney > 0
               ? Day(dailyMoney: _dailyMoney)
-              : SizedBox(
+              : const SizedBox(
                   height: 8,
                 )
         ],

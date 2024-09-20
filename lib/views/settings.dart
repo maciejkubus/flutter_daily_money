@@ -44,13 +44,15 @@ class _SettingsViewState extends State<SettingsView> {
     await prefs.setString('money', _moneyController.text);
     if (_selectedDate != null) {
       await prefs.setString('payday', _selectedDate!.toIso8601String());
-      await prefs.setString('payday-from', DateTime.now().toIso8601String());
+      await prefs.setString(
+          'payday-from', DateFormat('yyyy-MM-dd').format(DateTime.now()));
     }
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
+      const SnackBar(
         content: Text('Settings saved!'),
       ),
     );
+    FocusManager.instance.primaryFocus?.unfocus();
   }
 
   Future<void> _selectDate(BuildContext context) async {
@@ -82,16 +84,16 @@ class _SettingsViewState extends State<SettingsView> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(
+            const Text(
               'Settings',
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             // Money Input
             TextFormField(
               controller: _moneyController,
               keyboardType: TextInputType.number,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: 'Money',
                 border: OutlineInputBorder(),
               ),
@@ -102,7 +104,7 @@ class _SettingsViewState extends State<SettingsView> {
                 return null;
               },
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             // Date Input (Payday)
             Row(
               children: [
@@ -111,24 +113,24 @@ class _SettingsViewState extends State<SettingsView> {
                     _selectedDate == null
                         ? 'No date selected'
                         : 'Selected date: ${DateFormat('yyyy-MM-dd').format(_selectedDate!)}',
-                    style: TextStyle(fontSize: 16),
+                    style: const TextStyle(fontSize: 16),
                   ),
                 ),
                 ElevatedButton(
                   onPressed: () => _selectDate(context),
-                  child: Text(
+                  child: const Text(
                     'Select Payday',
                     style: TextStyle(fontSize: 16),
                   ),
                 ),
               ],
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             // Save Button
             Center(
               child: ElevatedButton(
                 onPressed: _saveForm,
-                child: Text(
+                child: const Text(
                   'Save',
                   style: TextStyle(fontSize: 20),
                 ),
