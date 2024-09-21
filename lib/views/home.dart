@@ -60,7 +60,7 @@ class _HomeViewState extends State<HomeView> {
   void _calculateDaysLeft() {
     if (_payday != null && _paydayFrom != null) {
       setState(() {
-        _daysLeft = _payday!.difference(_paydayFrom!).inDays + 1;
+        _daysLeft = _payday!.difference(_paydayFrom!).inDays;
       });
     }
   }
